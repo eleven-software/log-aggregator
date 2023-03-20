@@ -21,7 +21,7 @@ func New() transform.Transformer {
 		rec.Fields["product"] = product
 		rec.Fields["component"] = component
 
-		formattedTime := rec.Time.Format("2006-01-02T15:04:05.000")
+		formattedTime := rec.Time.Format("2006-01-02T15:04:05.000Z")
 		rec.Fields["when"] = formattedTime
 		return rec, nil
 	}
