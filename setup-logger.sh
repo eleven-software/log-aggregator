@@ -3,8 +3,8 @@ set -e
 
 
 if [ $# -lt 3 ]; then
-	echo "Usage: $ <firehose_stream> <product> <component> <units/service to ignore>"
-	echo "example: $0 log-stream \"product a\" \"component b\" \"redis.service,postgresql\""
+	echo "Usage: $ <firehose_stream> <product> <component> <units/service to ignore> <log_format>"
+	echo "example: $0 log-stream \"product a\" \"component b\" \"redis.service,postgresql\" \"2006-01-02T15:04:05.000\" "
 	echo "WARNING logger will not be installed, safely exiting with 0 to not abort deployment"
 
 	exit 0
@@ -12,6 +12,7 @@ fi
 
 eleven_product="$2"
 eleven_component="$3"
+log_format="$5"
 
 ignore_systemd_units="${4:-}"
 
@@ -44,6 +45,7 @@ Environment="FAIR_LOG_FIREHOSE_STREAM=$1"
 Environment="FAIR_LOG_FIREHOSE_CREDENTIALS_ENDPOINT=$endpoint"
 Environment="ELEVEN_PRODUCT=$eleven_product"
 Environment="ELEVEN_COMPONENT=$eleven_component"
+Environment="LOG_FORMAT=$log_format"
 Environment="ENV=production"
 Environment="SYSTEMD_UNITS_IGNORE=$ignore_systemd_units"
 ExecStart=/usr/local/bin/start-logger
