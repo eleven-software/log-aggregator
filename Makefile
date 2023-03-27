@@ -72,7 +72,7 @@ release: $(LINUX_BINARY)
 github_release: $(LINUX_BINARY)
 	tar \
 		--transform "s|$(LINUX_BINARY)|log-aggregator|" \
-		-czf "dist/log_aggergator_$(BUILD_ID).tar.gz" \
+		-czf "dist/log_aggregator_$(BUILD_ID).tar.gz" \
 		$(LINUX_BINARY) \
 		$(SETUP_SCRIPT)
 
