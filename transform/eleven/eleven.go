@@ -20,7 +20,7 @@ func New() transform.Transformer {
 
 	timeFormat := os.Getenv(EnvTimeFormat)
 	if timeFormat == "" {
-		timeFormat = "2006-01-02T15:04:05.000Z"
+		timeFormat = "2006-01-02T15:04:05.000Z07"
 	}
 
 	return func(rec *types.Record) (*types.Record, error) {
