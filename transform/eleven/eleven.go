@@ -20,14 +20,14 @@ func New() transform.Transformer {
 
 	timeFormat := os.Getenv(EnvTimeFormat)
 	if timeFormat == "" {
-		timeFormat = "2006-01-02T15:04:05.000Z"
+		timeFormat = "2006-01-02T15:04:05.000Z07:00"
 	}
 
 	return func(rec *types.Record) (*types.Record, error) {
 		rec.Fields["product"] = product
 		rec.Fields["component"] = component
 
-		formattedTime := rec.Time.Format(timeFormat)
+		formattedTime := rec.Time.UTC().Format(timeFormat)
 		rec.Fields["when"] = formattedTime
 		return rec, nil
 	}
