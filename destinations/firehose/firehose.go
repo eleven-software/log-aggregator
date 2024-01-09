@@ -3,6 +3,7 @@ package firehose
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"time"
 
 	"go.uber.org/zap"
@@ -108,6 +109,26 @@ func (c *Client) deliver() {
 				input := &firehose.PutRecordBatchInput{
 					DeliveryStreamName: aws.String(c.firehoseStream),
 					Records:            batchRecords,
+				}
+				dat, _ := json.Marshal(batchRecords)
+				// create file to log records
+				file, err := os.Create("records.log")
+				if err != nil {
+					fmt.Println("Error opening file:", err)
+					return err
+				}
+				defer file.Close()
+
+				// Write content to the file
+				_, err = file.WriteString(string(dat))
+				if err != nil {
+					fmt.Println("Error writing to file:", err)
+					return err
+				}
+
+				if err != nil {
+					logging.Logger.Error(fmt.Sprintf("failed tp put record batch: %s", err))
+					return err
 				}
 				out, err := c.firehoseClient.PutRecordBatch(input)
 				if err != nil {
