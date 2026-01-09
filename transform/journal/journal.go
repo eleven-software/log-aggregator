@@ -4,7 +4,7 @@ import "log-aggregator/types"
 
 // Transform changes the contents of a record
 func Transform(rec *types.Record) (*types.Record, error) {
-	// Re-assign MESSAGE field to log
+	// Re-assign MESSAGE field to message
 	if val, ok := rec.Fields["MESSAGE"]; ok {
 		rec.Fields["message"] = val
 		delete(rec.Fields, "MESSAGE")
