@@ -19,8 +19,8 @@ func TestTransform(t *testing.T) {
 		t.Errorf("Did not expected MESSAGE field to exist")
 	}
 
-	if val, ok := transformed.Fields["log"]; !ok || val != "foo" {
-		t.Errorf("Expected field log to be 'foo', but got '%s'", val)
+	if val, ok := transformed.Fields["message"]; !ok || val != "foo" {
+		t.Errorf("Expected field message to be 'foo', but got '%v'", val)
 	}
 
 	if _, ok := transformed.Fields["_SYSTEMD_UNIT"]; ok {
